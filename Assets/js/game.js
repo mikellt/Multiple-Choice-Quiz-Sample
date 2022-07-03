@@ -1,5 +1,4 @@
 // check list:
-// declare count down Timer 
 // declare questions(array)
 var questions = [
     {
@@ -39,31 +38,37 @@ var questions = [
  // declare the "timerEl"
 var timerEl = document.querySelectorAll("#timer")
 
-var startButton = document.querySelector("#start-game")
-
-    // hide start screen
-
-    // display first question
-
-    // Set the starting value of "countdown"
-
-    // start timer
+var startButton = document.querySelector("#start-game");
 
 
-function startGame() {
+// Countdown timer
+function startTimer(duration, display) {
+  var timer = duration, minutes,seconds;
+  setInterval(function () {
+    minutes = parseInt(timer / 60, 10);
+    seconds = parseInt(timer % 60, 10);
 
-    //startTimer();
-    
-    displayCurrentQuestion();
-    
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    display.textContent = minutes + ":" + seconds;
+
+    if (--timer < 0) {
+        timer = duration;
+    }
+}, 1000);
 }
 
-function startTimer() {
+window.onclick = function () {
+  var twoMinutes = 60 * 2,
+      display = document.querySelector('#timer');
+      startButton.style.display = 'none';
+  startTimer(twoMinutes, display);
+};
 
-}
-
+//Question start
 function displayCurrentQuestion(){
-document.getElementById('questions').innerHTML=
+document.querySelector('#questions').innerHTML=
 `<h3>${questions[0].title}</h3>
 <button>${questions[0].choices[0]}</button>
 <button>${questions[0].choices[1]}</button>
@@ -73,6 +78,16 @@ document.getElementById('questions').innerHTML=
 }
 
 startButton.onclick= displayCurrentQuestion
+
+function displayCurrentQuestion(){
+  document.querySelector('#questions').innerHTML=
+  `<h3>${questions[0].title}</h3>
+  <button>${questions[1].choices[0]}</button>
+  <button>${questions[1].choices[1]}</button>
+  <button>${questions[1].choices[2]}</button>
+  <button>${questions[1].choices[3]}</button>
+  `
+  }
 
 // function that "answerQuestion"
 
